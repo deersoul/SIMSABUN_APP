@@ -1,6 +1,6 @@
-# 심령사진 분류 아르바이트 · SIMSABUN
+# SIMSABUN_APP · 심령사진 분류 아르바이트
 
-Android 전용 Flutter 웹뷰 앱입니다.
+심령사진 분류 아르바이트의 Android 전용 Flutter 웹뷰 앱입니다.
 
 ## 동작
 
