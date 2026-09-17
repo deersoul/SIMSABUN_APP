@@ -28,7 +28,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "xyz.deersoul6662.simsabun"
+        applicationId = "com.ymshin.simsabun"
         minSdk = 24
         targetSdk = 36
         versionCode = flutter.versionCode

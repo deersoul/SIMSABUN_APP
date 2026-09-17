@@ -139,6 +139,7 @@ class _WebsiteScreenState extends State<WebsiteScreen>
     with WidgetsBindingObserver {
   late final WebViewController _controller;
   Timer? _fullscreenTimer;
+  Timer? _exitTimer;
   bool _loading = true;
   bool _failed = false;
   bool _handlingBack = false;
@@ -211,10 +212,20 @@ class _WebsiteScreenState extends State<WebsiteScreen>
     if (_handlingBack) return;
     _handlingBack = true;
     try {
-      if (await _controller.canGoBack()) {
-        await _controller.goBack();
-      } else {
+      if (_exitTimer?.isActive == true) {
+        _exitTimer?.cancel();
         await SystemNavigator.pop();
+      } else if (mounted) {
+        const exitWindow = Duration(seconds: 2);
+        _exitTimer = Timer(exitWindow, () {});
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(
+            const SnackBar(
+              content: Text('한번 더 누를 시 앱이 종료됩니다.'),
+              duration: exitWindow,
+            ),
+          );
       }
     } finally {
       _handlingBack = false;
@@ -224,6 +235,7 @@ class _WebsiteScreenState extends State<WebsiteScreen>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) unawaited(_restoreFullscreen());
+    if (state == AppLifecycleState.paused) _exitTimer?.cancel();
   }
 
   @override
@@ -248,6 +260,7 @@ class _WebsiteScreenState extends State<WebsiteScreen>
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     _fullscreenTimer?.cancel();
+    _exitTimer?.cancel();
     super.dispose();
   }
 

@@ -38,7 +38,7 @@ flutter build appbundle --release
 
 결과: `build/app/outputs/bundle/release/app-release.aab`
 
-- 패키지 ID: `xyz.deersoul6662.simsabun`
+- 패키지 ID: `com.ymshin.simsabun`
 - 최소 Android 7.0(API 24), 대상 Android 16(API 36)
 - 버전: `pubspec.yaml`의 `1.0.0+1`. 후속 업로드 시 `+` 뒤 빌드 번호를 증가시킵니다.
 - AAB는 Google Play 업로드용입니다. 기기에 직접 설치하려면 APK 또는 bundletool을 사용합니다.
