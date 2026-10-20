@@ -1,7 +1,7 @@
 name: simsabun
 description: 심령사진 분류 아르바이트 Android 웹뷰 앱.
 publish_to: 'none'
-version: 1.0.4+4
+version: 1.0.5+5
 
 environment:
   sdk: ^3.8.1
@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  google_mobile_ads: ^6.0.0
   webview_flutter: ^4.13.0
 
 dev_dependencies:

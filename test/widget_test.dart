@@ -3,6 +3,27 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:simsabun/main.dart';
 
 void main() {
+  testWidgets('banner appears above content only after splash', (tester) async {
+    const bannerKey = ValueKey('banner');
+    const contentKey = ValueKey('content');
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: LaunchScreen(
+          banner: SizedBox(key: bannerKey, height: 60),
+          child: SizedBox(key: contentKey),
+        ),
+      ),
+    );
+    expect(find.byKey(bannerKey), findsNothing);
+    await tester.pump(splashDuration);
+    expect(find.byKey(bannerKey), findsOneWidget);
+    expect(
+      tester.getTopLeft(find.byKey(contentKey)).dy,
+      tester.getBottomLeft(find.byKey(bannerKey)).dy,
+    );
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('splash covers the website for three seconds', (tester) async {
     await tester.pumpWidget(
       const MaterialApp(home: LaunchScreen(child: Text('website'))),

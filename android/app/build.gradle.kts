@@ -33,6 +33,7 @@ android {
         targetSdk = 36
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        manifestPlaceholders["admobAppId"] = "ca-app-pub-3940256099942544~3347511713"
     }
 
     signingConfigs {
@@ -48,6 +49,7 @@ android {
 
     buildTypes {
         release {
+            manifestPlaceholders["admobAppId"] = "ca-app-pub-4313861436734901~9349688979"
             signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = true
             isShrinkResources = true

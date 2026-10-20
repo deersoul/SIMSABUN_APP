@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'top_banner.dart';
 
 const websiteUrl = 'https://deersoul6662.xyz';
 const appTitle = '심령사진 분류 아르바이트';
@@ -41,14 +42,19 @@ class SimsabunApp extends StatelessWidget {
         onSurface: ivoryColor,
       ),
     ),
-    home: const LaunchScreen(child: WebsiteScreen()),
+    home: const LaunchScreen(banner: TopBanner(), child: WebsiteScreen()),
   );
 }
 
 /// Preloads the website behind an opaque splash for three seconds.
 class LaunchScreen extends StatefulWidget {
-  const LaunchScreen({super.key, required this.child});
+  const LaunchScreen({
+    super.key,
+    required this.child,
+    this.banner = const SizedBox.shrink(),
+  });
   final Widget child;
+  final Widget banner;
   @override
   State<LaunchScreen> createState() => _LaunchScreenState();
 }
@@ -80,7 +86,15 @@ class _LaunchScreenState extends State<LaunchScreen> {
     children: [
       ExcludeSemantics(
         excluding: _showSplash,
-        child: IgnorePointer(ignoring: _showSplash, child: widget.child),
+        child: IgnorePointer(
+          ignoring: _showSplash,
+          child: Column(
+            children: [
+              if (!_showSplash) widget.banner,
+              Expanded(child: widget.child),
+            ],
+          ),
+        ),
       ),
       if (_showSplash) const SplashScreen(),
     ],

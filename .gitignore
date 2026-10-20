@@ -1,4 +1,10 @@
 # Miscellaneous
+# Signing material must stay private regardless of its folder.
+*.jks
+*.keystore
+*.p12
+*.pfx
+key.properties
 *.class
 *.log
 *.pyc
